@@ -1,11 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm
-from django.utils import timezone
-from django.http import HttpResponse
 
 
-def task_list(request, task_id=None):
+def task_list(request):
     tasks = Task.objects.all()
 
     if request.method == 'POST':
