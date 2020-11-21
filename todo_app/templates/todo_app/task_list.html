@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style media="screen">
+.list-group-item:hover {
+    background-color: MediumSeaGreen;
+}
+</style>
+
+
+<div class="list-group">
+    <div style="background-color:Tomato;"class=" forma list-group-item list-group-item-action flex-column align-items-start active">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">New Task</h5>
+      </div>
+      <form class="" action="." method="post">
+          {{ form.as_p }}
+          <!--<input type="date">{{form.created.as_p}}-->
+          {% csrf_token %}
+          <p><input type="submit" class="btn btn-light "value="Add" style="float:right"></p>
+      </form>
+      <p>*Dates from past will not be accepted.</p>
+
+  </div>
+
+
+
+    {% for task in tasks %}
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{task.title}}</h5>
+      <small>{{task.created}}</small>
+    </div>
+    <!--<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>-->
+    <form class="" action="{% url "todo_app:delete_task" task.id %}" method="post">
+        {% csrf_token %}
+        <p><input type="submit" class="btn btn-light "value="Delete" style="float:right"></p>
+    </form>
+    <small>Deadline: {{task.deadline}}</small>
+
+
+
+
+  </a>
+  {% endfor %}
+
+</div>
+{% endblock %}
